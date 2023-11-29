@@ -25,11 +25,13 @@ const LoginForm = () => {
   const {status,error} = useSelector((state) => state.user)
 
   const onSubmit  = async (values) => {
-   const res =  await dispatch(loginUser(values)).unwrap()
-   if(res?.user){
+   const res =  await dispatch(loginUser(values))
+   if(res?.payload?.user){
     navigate("/")
    }
   }
+
+  console.log(error)
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center overflow-hidden">
