@@ -1,13 +1,34 @@
 import { useState } from "react"
 import { FilterIcon, ReturnIcon,SearchIcon } from "../../../svg"
+import axios from "axios"
+import { useSelector } from "react-redux"
 
 const Search = ({
-  searchLength
+  searchLength,
+  setSearchResults
 }) => {
+
+  const {user} = useSelector((state)=> state.user)
+  const {token} = user;
+
   const [show,setShow] = useState(false)
 
-  const handleSearch = (e) =>{
-    console.log(e.target.value)
+  const handleSearch = async(e) =>{
+    if(e.target.value && e.key === "Enter"){
+    try {
+        const {data} = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/user?search=${e.target.value}`,{
+          headers:{
+            Authorization:`Bearer ${token}`
+          }
+        })
+        setSearchResults(data)
+    } catch (error) {
+      console.log(error.response.data.error.message)
+    }
+  } 
+  else {
+    setSearchResults([])
+  }
   }
 
   return (

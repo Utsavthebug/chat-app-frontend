@@ -16,9 +16,9 @@ const Home = () => {
   },[user])
 
   return (
-    <div className=' min-h-screen dark:bg-dark_bg_1 flex  justify-center py-[19px] overflow-hidden'>
+    <div className='h-screen dark:bg-dark_bg_1 flex  justify-center py-[19px] overflow-hidden'>
       {/* container */}
-      <div className='container flex'>
+      <div className='container h-screen'>
       {/* sidebar */}
       <Sidebar/>
       </div>
