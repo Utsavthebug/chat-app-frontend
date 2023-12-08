@@ -39,9 +39,9 @@ const RegisterForm = () => {
      Secureurl =  await uploadImage(picture)
     }
 
-    const res = await dispatch(registerUser({...data,picture:Secureurl})).unwrap()
+    const res = await dispatch(registerUser({...data,picture:Secureurl}))
 
-   if(res.user){
+   if(res?.payload?.user){
     navigate('/')
    }
   }
@@ -122,7 +122,7 @@ const RegisterForm = () => {
 
         <p className="flex flex-col items-center justify-center mt-10 text-center text-md dark:text-dark_text_1">
           <span>have an account ?</span>
-          <Link href="/login" className="hover:underline cursor-pointer transition ease-in duration-300">Sign in</Link>
+          <Link to="/login" className="hover:underline cursor-pointer transition ease-in duration-300">Sign in</Link>
         </p>
       </form>
       </div>

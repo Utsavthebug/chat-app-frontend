@@ -1,8 +1,11 @@
 import { useSelector } from "react-redux"
 import {CommunityIcon,StoryIcon,ChatIcon,DotsIcon} from '../../../svg'
+import { useState } from "react"
+import Menu from "./Menu"
 
 const SidebarHeader = () => {
     const {user} = useSelector((state)=>state.user)
+    const [showMenu,setShowMenu] = useState(false)
   return (
     <div className=" h-[50px] dark:bg-dark_bg_2 flex items-center p16">
         <div className=" w-full items-center flex justify-between">
@@ -33,10 +36,12 @@ const SidebarHeader = () => {
                     </button>
                 </li>
 
-                <li>
-                    <button className="btn">
+                <li className="relative" onClick={()=>setShowMenu((prev)=>!prev)}>
+                    <button className={`btn ${showMenu?'bg-dark_hover_1':''}`}>
                     <DotsIcon  className="dark:fill-dark_svg_1"/>
                     </button>
+                {showMenu ? <Menu/> : null}
+                    
                 </li>
             </ul>
         </div>

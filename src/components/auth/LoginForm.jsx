@@ -5,7 +5,7 @@ import AuthInput from "./AuthInput"
 import { useDispatch, useSelector } from "react-redux"
 import { PulseLoader } from "react-spinners"
 import { Link, useNavigate } from "react-router-dom"
-import { changeStatus, loginUser } from "../../features/userSlice"
+import {  loginUser } from "../../features/userSlice"
 
 
 
@@ -73,7 +73,7 @@ const LoginForm = () => {
 
         <p className="flex flex-col items-center justify-center mt-10 text-center text-md dark:text-dark_text_1">
           <span>you do not have an account ?</span>
-          <Link href="/register" className="hover:underline cursor-pointer transition ease-in duration-300">Sign Up</Link>
+          <Link to="/register" className="hover:underline cursor-pointer transition ease-in duration-300">Sign Up</Link>
         </p>
       </form>
       </div>
