@@ -3,7 +3,7 @@ import ChatHeader from "./header/ChatHeader"
 import ChatMessages from "./messages/ChatMessages"
 import { useEffect } from "react"
 import { getConversationMessages } from "../../features/chatSlice"
-import ChatActions from "./actions/ChatActions"
+import { ChatActions } from "./actions"
 
 const ChatContainer = () => {
   const {activeConversation} = useSelector((state)=>state.chat)
