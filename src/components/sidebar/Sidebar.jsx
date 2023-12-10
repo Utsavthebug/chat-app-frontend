@@ -19,7 +19,10 @@ const Sidebar = () => {
     <Search searchLength={searchResults.length} setSearchResults={setSearchResults}/>
 
     {
-      searchResults.length > 0 ? <SearchResults searchResults={searchResults}/> : <Conversations/>
+      searchResults.length > 0 ? <SearchResults 
+      setSearchResults={setSearchResults}
+      searchResults={searchResults}
+      /> : <Conversations/>
     }
 
     </div>
