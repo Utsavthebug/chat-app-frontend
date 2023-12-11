@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import EmojiPickerApp from './EmojiPickerApp'
-import Attachments from './Attachments'
+import {Attachments} from './attachments'
 import { SendIcon } from '../../../svg'
 import Input from './Input'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,6 +8,10 @@ import { ClipLoader } from 'react-spinners'
 
 const ChatActions = () => {
   const [message,setMessage] = useState("") 
+  const [showEmojis,setShowEmojis] = useState(false)
+  const [showAttachments,setShowAttachments] = useState(false)
+  const [loading,setLoading] = useState(false)
+
     const dispatch = useDispatch()
 
     const {activeConversation,status} = useSelector((state)=>state.chat)
@@ -24,9 +28,11 @@ const ChatActions = () => {
     const textRef = useRef()
 
   const sendMessageHandler = async(e)=>{
+    setLoading(true)
     e.preventDefault()
     await dispatch(setMessage(values))
     setMessage("")
+    setLoading(false)
   }
 
   return (
@@ -34,8 +40,20 @@ const ChatActions = () => {
         <div className="w-full flex items-center gap-x-2">
             {/* Emojis and attachments */}
             <ul className='flex gap-x-2'>    
-                <EmojiPickerApp textRef={textRef} message={message} setMessage={setMessage} />
-                <Attachments />
+                <EmojiPickerApp 
+                showPicker={showEmojis} 
+                setShowPicker={setShowEmojis} 
+                setShowAttachments={setShowAttachments}
+                textRef={textRef} 
+                message={message} 
+                setMessage={setMessage} />
+
+
+                <Attachments
+                showAttachments={showAttachments}
+                setShowAttachments={setShowAttachments}
+                setShowPicker={setShowEmojis}
+                />
             </ul>
 
             {/* Inputs */}
@@ -44,7 +62,7 @@ const ChatActions = () => {
             {/* Send button */}
             <button type='submit' className='btn'>
                 {
-                    status ==="loading" ? <ClipLoader color="#E9EDEF" size={25}/> : <SendIcon className={"dark:fill-dark_svg_1"} />
+                    status ==="loading" && loading ? <ClipLoader color="#E9EDEF" size={25}/> : <SendIcon className={"dark:fill-dark_svg_1"} />
                 }
                
             </button>

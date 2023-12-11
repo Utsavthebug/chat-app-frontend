@@ -5,7 +5,8 @@ import EmojiPicker from 'emoji-picker-react'
 const EmojiPickerApp = ({
   message,
   setMessage,
-  textRef
+  textRef,
+  setShowAttachments
 }) => {
   const [showPicker,setShowPicker] = useState(false)
   const [cursorPosition,setCursorPosition] = useState()
@@ -32,7 +33,10 @@ const EmojiPickerApp = ({
 
   return (
     <li>
-        <button onClick={()=>setShowPicker((prev)=>!prev)} className='btn' type='button'>
+        <button onClick={()=>{
+          setShowAttachments(false)
+          setShowPicker((prev)=>!prev)
+        }} className='btn' type='button'>
            {
             showPicker ? <CloseIcon  className={"dark:fill-dark_svg_1"}/> :  <EmojiIcon className={"dark:fill-dark_svg_1"} />
            }
