@@ -4,6 +4,7 @@ import Login from './pages/login'
 import Register from './pages/register'
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
+import SocketContext from "./context/SocketContext";
 
 //socket connection
 const socket = io(process.env.REACT_APP_SOCKET_ENDPOINT)
@@ -13,6 +14,7 @@ function App() {
   const {token} = user
   return (
     <div className="dark">
+    <SocketContext.Provider value={socket}>
     <Router>
       <Routes>
       <Route exact path="/" element={ token ?  <Home/> : <Navigate to={"/login"}/>}  />
@@ -20,6 +22,7 @@ function App() {
       <Route exact path="/register" element={!token ?  <Register/> : <Navigate to={"/"}/>}  />
       </Routes>
     </Router>
+    </SocketContext.Provider>
     </div>
   );
 }

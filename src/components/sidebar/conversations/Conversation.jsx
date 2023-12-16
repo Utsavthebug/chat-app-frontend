@@ -3,12 +3,19 @@ import { dateHandler } from "../../../utils/date"
 import { useDispatch, useSelector } from "react-redux"
 import {setActiveConversation} from '../../../features/chatSlice'
 import { capitalize } from "../../../utils/string"
+import { useContext } from "react"
+import SocketContext from "../../../context/SocketContext"
+import { getConversationImage, getConversationName } from "../../../utils/chat"
 
 const Conversation = ({convo}) => {
     const dispatch = useDispatch()
+
+  const socket = useContext(SocketContext)
+  const { user } = useSelector((state) => state.user);
    
-    const openConversation = ()=>{
-    dispatch(setActiveConversation(convo))
+    const openConversation = async()=>{
+    await dispatch(setActiveConversation(convo))
+    socket.emit('join conversation',convo._id)
     }
 
     const {activeConversation} = useSelector((state)=>state.chat)
@@ -22,13 +29,16 @@ const Conversation = ({convo}) => {
         {/* left */}
         <div className='flex items-center gap-x-3'>
             <div className="relative max-w-[50px] max-h-[50px] rounded-full overflow-hidden">
-                <img src={convo?.picture} alt={convo?.name}  className='w-full h-full object-cover'/>
+                <img 
+                src={getConversationImage(user,convo?.users)} 
+                alt={convo?.name}  
+                className='w-full h-full object-cover'/>
             </div>
 
             <div className="w-full flex flex-col">
                 {/* conversation name */}
                 <h1 className='font-bold flex items-center gap-x-2'>
-                    {capitalize(convo?.name)}
+                    {capitalize(getConversationName(user,convo?.users))}
                 </h1>
 
                 <div className='flex items-center gap-x-1 dark:text-dark_text_2'>

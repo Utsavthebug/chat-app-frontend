@@ -1,17 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Sidebar } from '../components/sidebar'
 import { useDispatch, useSelector } from 'react-redux'
 import { getConversations } from '../features/chatSlice'
 import { WhatsappHome } from '../components/Chat'
 import {ChatContainer} from '../components/Chat'
+import SocketContext from '../context/SocketContext'
 
 const Home = () => {
   const dispatch = useDispatch()
+
+  //use context
+  const socket = useContext(SocketContext)
 
   const {user} = useSelector((state)=>state.user)
 
   const {activeConversation} = useSelector((state)=>state.chat)
 
+  //join user into socket io
+  useEffect(()=>{
+    socket.emit("join",user._id)
+  },[user])
   
   //get conversations
   useEffect(()=>{
