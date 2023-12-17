@@ -5,6 +5,7 @@ import { getConversations } from '../features/chatSlice'
 import { WhatsappHome } from '../components/Chat'
 import {ChatContainer} from '../components/Chat'
 import SocketContext from '../context/SocketContext'
+import { updateMessagesAndConversations } from '../features/chatSlice'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -27,6 +28,13 @@ const Home = () => {
       dispatch(getConversations(user.token))
     }
   },[user,dispatch])
+
+  //listening to received messages 
+  useEffect(()=>{
+    socket.on("receive message",message =>{
+      dispatch(updateMessages(message))
+    })
+  },[])
 
   return (
     <div className='h-screen dark:bg-dark_bg_1 flex  justify-center overflow-hidden'>

@@ -11,14 +11,16 @@ const Conversation = ({convo}) => {
     const dispatch = useDispatch()
 
   const socket = useContext(SocketContext)
+
   const { user } = useSelector((state) => state.user);
+  const {activeConversation} = useSelector((state)=>state.chat)
    
     const openConversation = async()=>{
     await dispatch(setActiveConversation(convo))
     socket.emit('join conversation',convo._id)
     }
 
-    const {activeConversation} = useSelector((state)=>state.chat)
+
 
   return (
    <li 
