@@ -7,7 +7,7 @@ import { useContext } from "react"
 import SocketContext from "../../../context/SocketContext"
 import { getConversationImage, getConversationName } from "../../../utils/chat"
 
-const Conversation = ({convo}) => {
+const Conversation = ({convo,online}) => {
     const dispatch = useDispatch()
 
   const socket = useContext(SocketContext)
@@ -30,7 +30,8 @@ const Conversation = ({convo}) => {
     <div className="relative w-full flex items-center justify-between py-[10px]">
         {/* left */}
         <div className='flex items-center gap-x-3'>
-            <div className="relative max-w-[50px] max-h-[50px] rounded-full overflow-hidden">
+            {/* conversation image */}
+            <div className={`relative max-w-[50px] max-h-[50px] rounded-full overflow-hidden ${online ? "online":""}`}>
                 <img 
                 src={getConversationImage(user,convo?.users)} 
                 alt={convo?.name}  

@@ -10,5 +10,9 @@ export const getConversationName = (user,users) =>{
 
 export const getConversationImage = (user,users) =>{
     return users[0]._id === user._id ? users[1].picture : users[0].picture
+}
 
+export const checkOnlineStatus = (onlineUsers,user,users) => {
+    const convoId = getConversationId(user,users)
+    return onlineUsers.includes(convoId)
 }

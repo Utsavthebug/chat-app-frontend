@@ -3,7 +3,7 @@ import { DotsIcon, SearchLargeIcon } from "../../../svg"
 import { capitalize } from "../../../utils/string"
 
 
-const ChatHeader = () => {
+const ChatHeader = ({online}) => {
   const {activeConversation} = useSelector((state)=>state.chat)
   const {name,picture} = activeConversation
 
@@ -20,7 +20,7 @@ const ChatHeader = () => {
 
             <div className="flex flex-col">
                 <h1 className="dark:text-white text-md font-bold">{capitalize(name.split(" ")[0])}</h1>
-                <span className=" text-xs dark:text-dark_svg_2">online</span>
+                <span className=" text-xs dark:text-dark_svg_2">{online ? 'online':''}</span>
             </div>
             </div>
         

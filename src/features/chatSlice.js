@@ -10,7 +10,8 @@ const initialState={
     conversations:[],
     activeConversation:{},
     messages:[],
-    notifications:[]
+    notifications:[],
+    onlineUsers:[]
 }
 
 //functions 
@@ -107,6 +108,9 @@ const chatSlice = createSlice({
             newConvos.unshift(conversation)
             state.conversations=newConvos
     
+        },
+        addOnlineUsers: (state,action)=>{
+            state.onlineUsers = action.payload
         }
     },
     extraReducers(builder){
@@ -156,6 +160,6 @@ const chatSlice = createSlice({
     }
 })
 
-export const {setActiveConversation,updateMessagesAndConversations} = chatSlice.actions
+export const {setActiveConversation,updateMessagesAndConversations,addOnlineUsers} = chatSlice.actions
 
 export default chatSlice.reducer
