@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import Message from './Message'
+import Typing from './Typing'
 
-const ChatMessages = () => {
-    const {messages} = useSelector((state)=>state.chat)
+const ChatMessages = ({typing}) => {
+    const {messages,typing,activeConversation} = useSelector((state)=>state.chat)
     const {user} = useSelector((state)=>state.user)
 
     const endRef = useRef();
@@ -22,6 +23,10 @@ const ChatMessages = () => {
             messages && messages.map((message)=>(
                <Message message={message} key={message?._id} me={user?._id===message?.sender?._id} /> 
             ))
+        }
+
+        {
+          typing === activeConversation?._id && <Typing/>
         }
   <div className='mt-2' ref={endRef}></div>
     </div>

@@ -3,7 +3,7 @@ import Conversation from "./Conversation"
 import { checkOnlineStatus } from "../../../utils/chat"
 
 const Conversations = () => {
-  const {conversations,activeConversation,onlineUsers} = useSelector((state)=> state.chat)
+  const {conversations,activeConversation,onlineUsers,typing} = useSelector((state)=> state.chat)
   const {user} = useSelector((state)=>state.user)
 
   return (

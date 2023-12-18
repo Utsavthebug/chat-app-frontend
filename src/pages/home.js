@@ -5,7 +5,7 @@ import { getConversations } from '../features/chatSlice'
 import { WhatsappHome } from '../components/Chat'
 import {ChatContainer} from '../components/Chat'
 import SocketContext from '../context/SocketContext'
-import { updateMessagesAndConversations,addOnlineUsers } from '../features/chatSlice'
+import { updateMessagesAndConversations,addOnlineUsers,addTyping } from '../features/chatSlice'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -15,7 +15,7 @@ const Home = () => {
 
   const {user} = useSelector((state)=>state.user)
 
-  const {activeConversation} = useSelector((state)=>state.chat)
+  const {activeConversation,onlineUsers} = useSelector((state)=>state.chat)
 
   //join user into socket io
   useEffect(()=>{
@@ -25,6 +25,10 @@ const Home = () => {
     socket.on('get-online-users',(users)=>{
       dispatch(addOnlineUsers(users))
     })
+
+    //listening when a user is typing
+    socket.on("typing",(conversation)=> dispatch(addTyping(conversation)))
+    socket.on("stop typing",()=>dispatch(addTyping(null)))
 
   },[user])
   

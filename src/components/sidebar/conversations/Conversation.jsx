@@ -6,6 +6,7 @@ import { capitalize } from "../../../utils/string"
 import { useContext } from "react"
 import SocketContext from "../../../context/SocketContext"
 import { getConversationImage, getConversationName } from "../../../utils/chat"
+import Typing from "../../Chat/messages/Typing"
 
 const Conversation = ({convo,online}) => {
     const dispatch = useDispatch()
@@ -13,7 +14,7 @@ const Conversation = ({convo,online}) => {
   const socket = useContext(SocketContext)
 
   const { user } = useSelector((state) => state.user);
-  const {activeConversation} = useSelector((state)=>state.chat)
+  const {activeConversation,typing} = useSelector((state)=>state.chat)
    
     const openConversation = async()=>{
     await dispatch(setActiveConversation(convo))
@@ -46,7 +47,9 @@ const Conversation = ({convo,online}) => {
 
                 <div className='flex items-center gap-x-1 dark:text-dark_text_2'>
                     <div className="flex-1 items-center gap-x-1 dark:text-dark_text_2">
-                        <p>{convo?.latestMessage?.message.length >25 ? `${convo?.latestMessage?.message.substring(0,25)}..`: convo?.latestMessage?.message }</p>
+                        {
+            typing === convo._id ? <p className="text-green_1">Typing...</p> : <p>{convo?.latestMessage?.message.length >25 ? `${convo?.latestMessage?.message.substring(0,25)}..`: convo?.latestMessage?.message }</p>
+                        }
                     </div>
                 </div>
             </div>

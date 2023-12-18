@@ -11,7 +11,8 @@ const initialState={
     activeConversation:{},
     messages:[],
     notifications:[],
-    onlineUsers:[]
+    onlineUsers:[],
+    typing:null
 }
 
 //functions 
@@ -111,6 +112,9 @@ const chatSlice = createSlice({
         },
         addOnlineUsers: (state,action)=>{
             state.onlineUsers = action.payload
+        },
+        addTyping:(state,action)=>{
+            state.typing=action.payload
         }
     },
     extraReducers(builder){
@@ -160,6 +164,6 @@ const chatSlice = createSlice({
     }
 })
 
-export const {setActiveConversation,updateMessagesAndConversations,addOnlineUsers} = chatSlice.actions
+export const {setActiveConversation,updateMessagesAndConversations,addOnlineUsers,addTyping} = chatSlice.actions
 
 export default chatSlice.reducer

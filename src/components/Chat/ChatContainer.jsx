@@ -30,7 +30,7 @@ const ChatContainer = () => {
         <ChatHeader online={checkOnlineStatus(onlineUsers,user,activeConversation.users)} />
 
         {/* chat messages */}
-        <ChatMessages/>
+        <ChatMessages />
 
         {/* Chat Actions */}
         <ChatActions />

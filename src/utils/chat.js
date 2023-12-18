@@ -13,6 +13,8 @@ export const getConversationImage = (user,users) =>{
 }
 
 export const checkOnlineStatus = (onlineUsers,user,users) => {
-    const convoId = getConversationId(user,users)
-    return onlineUsers.includes(convoId)
+    let convoId = getConversationId(user, users);
+  let check = onlineUsers.find((u) => u.userId === convoId);
+      return check ? true : false;
+
 }
