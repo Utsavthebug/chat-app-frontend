@@ -1,6 +1,5 @@
-import { useState } from "react"
 import { AttachmentIcon } from "../../../../svg"
-import Menu from "./Menu"
+import Menu from "./menu/Menu"
 
 const Attachments = ({
   showAttachments,

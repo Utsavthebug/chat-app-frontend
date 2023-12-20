@@ -5,9 +5,10 @@ import { useEffect } from "react"
 import { getConversationMessages } from "../../features/chatSlice"
 import { ChatActions } from "./actions"
 import { checkOnlineStatus } from "../../utils/chat"
+import FilesPreview from "./preview/files/FilesPreview"
 
 const ChatContainer = () => {
-  const {activeConversation,onlineUsers} = useSelector((state)=>state.chat)
+  const {activeConversation,onlineUsers,files} = useSelector((state)=>state.chat)
   const {user} = useSelector((state)=> state.user)
   const {token} = user
   const dispatch = useDispatch()
@@ -29,11 +30,20 @@ const ChatContainer = () => {
         {/* chat header */}
         <ChatHeader online={checkOnlineStatus(onlineUsers,user,activeConversation.users)} />
 
-        {/* chat messages */}
-        <ChatMessages />
+        {
+          files.length > 0 ? <FilesPreview/> : 
+          (
+            <>
+            {/* chat messages */}
+              <ChatMessages />
+    
+            {/* Chat Actions */}
+            <ChatActions />
+            </>
+          )
+        }
 
-        {/* Chat Actions */}
-        <ChatActions />
+
       </div>
     </div>
   )

@@ -12,7 +12,8 @@ const initialState={
     messages:[],
     notifications:[],
     onlineUsers:[],
-    typing:null
+    typing:null,
+    files:[]
 }
 
 //functions 
@@ -115,6 +116,12 @@ const chatSlice = createSlice({
         },
         addTyping:(state,action)=>{
             state.typing=action.payload
+        },
+        addFiles : (state,action)=>{
+            state.files = [...state.files,action.payload]
+        },
+        clearFiles : (state,action)=>{
+            state.files = []
         }
     },
     extraReducers(builder){
@@ -131,6 +138,7 @@ const chatSlice = createSlice({
         }).addCase(open_create_conversation.fulfilled,(state,action)=>{
             state.status="succeeded"
             state.activeConversation=action.payload
+            state.files=[]
         }).addCase(open_create_conversation.rejected,(state,action)=>{
             state.status="failed"
             state.error=action.payload
@@ -164,6 +172,12 @@ const chatSlice = createSlice({
     }
 })
 
-export const {setActiveConversation,updateMessagesAndConversations,addOnlineUsers,addTyping} = chatSlice.actions
+export const {setActiveConversation,
+    updateMessagesAndConversations,
+    addOnlineUsers,
+    addFiles,
+    addTyping,
+    clearFiles
+} = chatSlice.actions
 
 export default chatSlice.reducer
