@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { removeFilesFromIndex } from "../utils/file";
 
 const CONVERSATION_ENDPOINT = `${process.env.REACT_APP_API_ENDPOINT}/conversation`
 const MESSAGE_ENDPOINT = `${process.env.REACT_APP_API_ENDPOINT}/message`
@@ -122,7 +123,11 @@ const chatSlice = createSlice({
         },
         clearFiles : (state,action)=>{
             state.files = []
-        }
+        },
+        removeFileFromFiles : (state,action)=>{
+            let index = action.payload;
+            state.files = removeFilesFromIndex(state.files,index)    
+        }   
     },
     extraReducers(builder){
         builder.addCase(getConversations.pending,(state,action)=>{
@@ -177,7 +182,8 @@ export const {setActiveConversation,
     addOnlineUsers,
     addFiles,
     addTyping,
-    clearFiles
+    clearFiles,
+    removeFileFromFiles
 } = chatSlice.actions
 
 export default chatSlice.reducer

@@ -41,7 +41,8 @@ const Home = () => {
 
   //listening to received messages 
   useEffect(()=>{
-    socket.on("receive message",message =>{
+    socket.on("message received",(message) =>{
+      console.log("received from socket",message)
       dispatch(updateMessagesAndConversations(message))
     })
   },[])

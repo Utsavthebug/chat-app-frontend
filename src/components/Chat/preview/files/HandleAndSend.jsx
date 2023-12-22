@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from "react-redux"
-import { SendIcon } from "../../../../svg"
+import { CloseIcon, SendIcon } from "../../../../svg"
 import Add from "./Add"
 import { uploadFiles } from "../../../../utils/upload"
 import { useContext, useState } from "react"
-import { sendMessage } from "../../../../features/chatSlice"
+import { sendMessage,removeFileFromFiles } from "../../../../features/chatSlice"
 import SocketContext from "../../../../context/SocketContext"
+import { ClipLoader } from "react-spinners"
+import VideoThumbnail from 'react-video-thumbnail'
 
 const HandleAndSend = ({
     setActiveIndex,
@@ -18,6 +20,12 @@ const HandleAndSend = ({
     const {token} = user
     const [loading,setLoading] = useState(false)
 
+    //handle remove file
+    const handleRemoveFile =(index)=>{
+        dispatch(removeFileFromFiles(index))
+    }
+
+    //send message handler
     const sendMessageHandler = async()=>{
         //upload files first
         setLoading(true)
@@ -27,7 +35,7 @@ const HandleAndSend = ({
             token,
             message,
             convo_id:activeConversation._id,
-            files:uploadFiles.length>0?uploadFiles:[],
+            files:uploaded_files.length>0?uploaded_files:[],
         }
 
         let newMsg = await dispatch(sendMessage(values))
@@ -45,7 +53,7 @@ const HandleAndSend = ({
             files.map((file,i)=>(
                 <div 
                 key={i} 
-                className={`w-14 h-14 border mt-2 dark:border-white rounded-md overflow-hidden cursor-pointer
+                className={`fileThumbnail relative w-14 h-14 border mt-2 dark:border-white rounded-md overflow-hidden cursor-pointer
                 ${activeIndex===i ? 'border-[3px] border-green_1':""}
                 `}
                 onClick={()=>setActiveIndex(i)}
@@ -53,8 +61,17 @@ const HandleAndSend = ({
                 {
                     file.type==="IMAGE" ?
                     <img className={`w-full h-full object-cover`} src={file.fileData} alt="" /> : 
+                    file.type==="VIDEO" ? <VideoThumbnail
+                    videoUrl={file.fileData}
+                  
+                    /> :
                     <img src={`../../../../images/file/${file.type}.png`} alt="" className="w-8 h-10 mt-1.5 ml-2.5" />
                 }
+                {/* Remove file icon */}
+                <div className="removeFileIcon hidden" onClick={()=>handleRemoveFile(i)}>
+                <CloseIcon className={"dark:fill-dark_svg_1 absolute right-0 top-0 w-4 h-4"}/>
+                </div>
+               
                 </div>
             ))
         }
@@ -64,7 +81,10 @@ const HandleAndSend = ({
 
         {/* send button */}
         <div onClick={()=>sendMessageHandler()} className="bg-green_1 w-16 h-16 mt-2 rounded-full items-center cursor-pointer">
-        <SendIcon className={"fill-white"}/>
+       {
+        loading ? <ClipLoader color="#E9EDEF" size={25}/> : <SendIcon className={"fill-white"}/>
+       }
+       
         </div>
 
     </div>

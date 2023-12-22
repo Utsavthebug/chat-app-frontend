@@ -39,6 +39,7 @@ const Input = ({message,setMessage,textRef}) => {
         <input ref={textRef} type="text" className='dark:bg-dark_hover_1 dark:text-dark_text_1 outline-none
         h-[45px] w-full flex-1 rounded-lg pl-4
         ' 
+        value={message}
         placeholder='Type a message'
         onChange={onChangeHandler}
         />

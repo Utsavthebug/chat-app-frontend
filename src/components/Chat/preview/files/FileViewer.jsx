@@ -11,7 +11,9 @@ const FileViewer = ({
         {/* Container */}
         <div className="flex justify-center items-center">
             {
-           files[activeIndex].type ==="IMAGE" ?   <img src={files[activeIndex].fileData} alt="max-w-[80%] object-contain hview" /> : <div className="min-w-full items-center justify-center hview flex flex-col"> 
+           files[activeIndex].type ==="IMAGE" ?   <img src={files[activeIndex].fileData} className="max-w-[80%] object-contain hview" alt="image" /> : 
+           files[activeIndex.type==="VIDEO"] ? <video src={files[activeIndex].fileData} className="max-w-[80%] object-contain hview" controls></video>:
+           <div className="min-w-full items-center justify-center hview flex flex-col"> 
            {/* File Icon Image */}
             <img src={`../../../../images/file/${files[activeIndex].type}.png`} alt="" />
            

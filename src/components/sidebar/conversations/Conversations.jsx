@@ -11,7 +11,7 @@ const Conversations = () => {
       <ul>
       {
         conversations && conversations.filter((c)=>c.latestMessage || c._id===activeConversation?._id).map((convo)=>(
-         <Conversation convo={convo} id={convo?._id} online={checkOnlineStatus(onlineUsers,user,convo)}/>
+         <Conversation convo={convo} id={convo?._id} online={checkOnlineStatus(onlineUsers,user,convo.users)}/>
         )
         )
       }

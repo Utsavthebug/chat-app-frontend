@@ -6,6 +6,7 @@ import Input from './Input'
 import { useDispatch, useSelector } from 'react-redux'
 import { ClipLoader } from 'react-spinners'
 import SocketContext from '../../../context/SocketContext'
+import { sendMessage } from '../../../features/chatSlice'
 
 const ChatActions = () => {
 
@@ -36,7 +37,7 @@ const ChatActions = () => {
   const sendMessageHandler = async(e)=>{
     setLoading(true)
     e.preventDefault()
-   let newMsg = await dispatch(setMessage(values))
+   let newMsg = await dispatch(sendMessage(values))
    socket.emit("send message",newMsg.payload)
     setMessage("")
     setLoading(false)

@@ -27,3 +27,9 @@ export const getFileType = (memType) => {
         return "IMAGE";
     }
   };
+
+export const removeFilesFromIndex = (files,index)=>{
+  let removeFiles = files
+  removeFiles.splice(index,1)
+  return removeFiles
+}
