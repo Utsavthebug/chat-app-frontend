@@ -7,7 +7,9 @@ import { ChatActions } from "./actions"
 import { checkOnlineStatus } from "../../utils/chat"
 import FilesPreview from "./preview/files/FilesPreview"
 
-const ChatContainer = () => {
+const ChatContainer = ({
+  callUser
+}) => {
   const {activeConversation,onlineUsers,files} = useSelector((state)=>state.chat)
   const {user} = useSelector((state)=> state.user)
   const {token} = user
@@ -21,14 +23,16 @@ const ChatContainer = () => {
       }))
     }
 
-  },[activeConversation])
+  },[activeConversation,dispatch,token])
 
   return (
-    <div className="relative w-full h-full dark:border-l-dark_border_2 select-none">
+    <div className="relative w-full h-full dark:border-l-dark_border_2 select-none overflow-hidden">
       {/* Container */}
       <div>
         {/* chat header */}
-        <ChatHeader online={checkOnlineStatus(onlineUsers,user,activeConversation.users)} />
+        <ChatHeader 
+        callUser={callUser}
+        online={checkOnlineStatus(onlineUsers,user,activeConversation.users)} />
 
         {
           files.length > 0 ? <FilesPreview/> : 
