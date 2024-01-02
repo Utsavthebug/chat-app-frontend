@@ -38,6 +38,9 @@ const Call = ({
         {/* Call area */}
         <CallArea
         name={name}
+        setTotalSecInCall={setTotalSecInCall}
+        totalSecInCall={totalSecInCall}
+        callAccepted={callAccepted}
         />
 
         {/* call actions */}

@@ -1,7 +1,8 @@
 import React from 'react'
 import { capitalize } from '../../../utils/string'
+import CallTimes from './CallTimes'
 
-const CallArea = ({name}) => {
+const CallArea = ({name,totalSecInCall,setTotalSecInCall,callAccepted}) => {
   return (
     <div className='absolute top-12 z-40 w-full p-1'>
         {/* Container */}
@@ -11,9 +12,13 @@ const CallArea = ({name}) => {
                 <h1 className="text-white text-lg">
                     <b>{name? capitalize(name):''}</b>
                 </h1>
-                <span className="text-dark_text_1">Ringing...</span>
-                <span className="text-dark_text_2">20:15</span>
-            </div>
+         {totalSecInCall===0 && <span className="text-dark_text_1">Ringing...</span>  }                 
+            <CallTimes 
+            setTotalSecInCall={setTotalSecInCall}
+            totalSecInCall={totalSecInCall}
+            callAccepted={callAccepted}
+            />
+          </div>
         </div>
     </div>
   )

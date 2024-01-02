@@ -90,7 +90,7 @@ const Home = () => {
     myVideo.current.srcObject=null
 
     if(callAccepted){
-    connectionRef.current.destroy()
+    connectionRef?.current?.destroy()
     }
 
   })
@@ -146,7 +146,7 @@ const Home = () => {
     })
     myVideo.current.srcObject=null;
     socket.emit("end call",call.socketId)
-    connectionRef.current.destroy()
+    connectionRef?.current?.destroy()
   }
 
   //answer call function
@@ -218,8 +218,6 @@ const Home = () => {
     </div>
     {/* Call */}
     <div className={(show || call.signal) && !call.callEnded ? '': 'hidden'}>
-
-    </div>
     <Call 
     call={call} 
     setCall={setCall} 
@@ -234,6 +232,8 @@ const Home = () => {
     totalSecInCall={totalSecInCall}
     setTotalSecInCall={setTotalSecInCall}
     />
+    </div>
+
     </>
   )
 }
