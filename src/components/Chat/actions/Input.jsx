@@ -20,7 +20,7 @@ const Input = ({message,setMessage,textRef}) => {
     }
 
     let lastTypingTime = new Date().getTime()
-    let timer = 2000;
+    let timer = 1000;
 
     setTimeout(()=>{
       let timeNow = new Date().getTime()
@@ -29,6 +29,7 @@ const Input = ({message,setMessage,textRef}) => {
 
       if(timeDiff>=timer && typing){
         socket.emit("stop typing",activeConversation?._id)
+        setTyping(false)
       }
 
     },timer)

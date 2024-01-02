@@ -13,7 +13,7 @@ const initialState={
     messages:[],
     notifications:[],
     onlineUsers:[],
-    typing:null,
+    typing:false,
     files:[]
 }
 

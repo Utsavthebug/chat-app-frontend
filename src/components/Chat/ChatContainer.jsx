@@ -21,7 +21,7 @@ const ChatContainer = () => {
       }))
     }
 
-  },[activeConversation])
+  },[activeConversation._id])
 
   return (
     <div className="relative w-full h-full dark:border-l-dark_border_2 select-none">

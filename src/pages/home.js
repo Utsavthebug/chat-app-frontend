@@ -26,9 +26,6 @@ const Home = () => {
       dispatch(addOnlineUsers(users))
     })
 
-    //listening when a user is typing
-    socket.on("typing",(conversation)=> dispatch(addTyping(conversation)))
-    socket.on("stop typing",()=>dispatch(addTyping(null)))
 
   },[user])
   
@@ -42,9 +39,14 @@ const Home = () => {
   //listening to received messages 
   useEffect(()=>{
     socket.on("message received",(message) =>{
-      console.log("received from socket",message)
+      console.log('xxxxxx')
       dispatch(updateMessagesAndConversations(message))
     })
+
+    
+    //listening when a user is typing
+    socket.on("typing",(conversation)=> dispatch(addTyping(conversation)))
+    socket.on("stop typing",()=>dispatch(addTyping(false)))
   },[])
 
   return (
