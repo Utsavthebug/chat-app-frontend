@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { Sidebar } from '../components/sidebar'
 import { useDispatch, useSelector } from 'react-redux'
 import { getConversations } from '../features/chatSlice'
@@ -36,17 +36,20 @@ const Home = () => {
     }
   },[user,dispatch])
 
+  const myMessagehandler = useCallback((message)=>{
+    dispatch(updateMessagesAndConversations(message))
+  },[]) 
+  
   //listening to received messages 
   useEffect(()=>{
-    socket.on("message received",(message) =>{
-      console.log('xxxxxx')
-      dispatch(updateMessagesAndConversations(message))
-    })
+    socket.on("message received",myMessagehandler)
 
     
     //listening when a user is typing
-    socket.on("typing",(conversation)=> dispatch(addTyping(conversation)))
-    socket.on("stop typing",()=>dispatch(addTyping(false)))
+    // socket.on("typing",(conversation)=> dispatch(addTyping(conversation)))
+    // socket.on("stop typing",()=>dispatch(addTyping(false)))
+
+    return ()=> socket.off('message received',myMessagehandler)
   },[])
 
   return (

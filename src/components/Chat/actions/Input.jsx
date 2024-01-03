@@ -14,25 +14,25 @@ const Input = ({message,setMessage,textRef}) => {
   const onChangeHandler = (e)=>{
     setMessage(e.target.value)
 
-    if(!typing){
-      setTyping(true)
-      socket.emit('typing',activeConversation?._id)
-    }
+    // if(!typing){
+    //   setTyping(true)
+    //   socket.emit('typing',activeConversation?._id)
+    // }
 
-    let lastTypingTime = new Date().getTime()
-    let timer = 1000;
+    // let lastTypingTime = new Date().getTime()
+    // let timer = 1000;
 
-    setTimeout(()=>{
-      let timeNow = new Date().getTime()
+    // setTimeout(()=>{
+    //   let timeNow = new Date().getTime()
 
-      let timeDiff = timeNow - lastTypingTime
+    //   let timeDiff = timeNow - lastTypingTime
 
-      if(timeDiff>=timer && typing){
-        socket.emit("stop typing",activeConversation?._id)
-        setTyping(false)
-      }
+    //   if(timeDiff>=timer && typing){
+    //     socket.emit("stop typing",activeConversation?._id)
+    //     setTyping(false)
+    //   }
 
-    },timer)
+    // },timer)
   }
 
   return (
